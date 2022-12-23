@@ -23,5 +23,8 @@
     "prettier": "2.8.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "slugify": "^1.6.5"
   }
 }
