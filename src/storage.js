@@ -1,4 +1,5 @@
 import slugify from 'slugify';
+import _ from 'lodash';
 
 const storageFactory = (storageId) => {
   const id = slugify(storageId);
@@ -17,7 +18,7 @@ const storageFactory = (storageId) => {
 
   const findOne = (query) => {
     return getStorage().reduce((prev, current) => {
-      if (current[query.property] === query.value) {
+      if (_.isEqual(current[query.property], query.value)) {
         prev = current;
         return prev;
       }
@@ -25,7 +26,15 @@ const storageFactory = (storageId) => {
     }, null);
   };
 
-  const findAll = () => {
+  const findAll = (query = null) => {
+    if (query) {
+      return getStorage().filter((element) => {
+        if (_.isEqual(element[query.property], query.value)) {
+          return true;
+        }
+        return false;
+      });
+    }
     return getStorage();
   };
 
@@ -38,7 +47,7 @@ const storageFactory = (storageId) => {
   const updateItem = (query, item) => {
     const storageArray = getStorage();
     const updatedArray = storageArray.map((element) => {
-      if (element[query.property] === query.value) {
+      if (_.isEqual(element[query.property], query.value)) {
         element = item;
         return element;
       }
@@ -50,7 +59,7 @@ const storageFactory = (storageId) => {
   const removeItem = (query) => {
     const storageArray = getStorage();
     const index = storageArray.findIndex((element) => {
-      if (element[query.property] === query.value) {
+      if (_.isEqual(element[query.property], query.value)) {
         return true;
       }
       return false;

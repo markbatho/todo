@@ -6,6 +6,28 @@ const todoPriorities = {
   high: { value: 'high', color: '#d32f2f' },
 };
 
+const todoFactory = (
+  title,
+  desc,
+  createdAt,
+  dueDate,
+  isDone,
+  priority,
+  project
+) => {
+  const id = slugify(title);
+  return {
+    id,
+    title,
+    desc,
+    createdAt,
+    dueDate,
+    isDone,
+    priority,
+    project,
+  };
+};
+
 const todoManagerFactory = (storage) => {
   const findAll = () => {
     return storage.findAll();
@@ -17,7 +39,6 @@ const todoManagerFactory = (storage) => {
 
   const saveTodo = (todo) => {
     if (findById(todo.id)) {
-      console.log('Exists...');
       return;
     }
 
@@ -35,17 +56,4 @@ const todoManagerFactory = (storage) => {
   return { findAll, findById, saveTodo, updateTodo, deleteTodo };
 };
 
-const todoFactory = (title, desc, createdAt, dueDate, isDone, priority) => {
-  const id = slugify(title);
-  return {
-    id,
-    title,
-    desc,
-    createdAt,
-    dueDate,
-    isDone,
-    priority,
-  };
-};
-
-export { todoPriorities, todoManagerFactory, todoFactory };
+export { todoPriorities, todoFactory, todoManagerFactory };
