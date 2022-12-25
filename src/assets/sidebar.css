@@ -1,0 +1,49 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: var(--secondary-grey);
+}
+
+.brand {
+  padding: 16px;
+  font-weight: bold;
+  font-size: 22px;
+  color: var(--primary-black);
+}
+
+.sidebar-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.sidebar-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: var(--secondary-black);
+}
+
+.sidebar-list li > svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--secondary-black);
+}
+
+.sidebar-list li:hover {
+  background-color: var(--primary-grey);
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-header {
+  padding: 8px 16px;
+  font-size: 18px;
+}
+
