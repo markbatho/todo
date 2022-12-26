@@ -37,6 +37,10 @@ const todoManagerFactory = (storage) => {
     return storage.findOne({ property: 'id', value: id });
   };
 
+  const findByProject = (project) => {
+    return storage.findAll({ property: 'project', value: project });
+  };
+
   const saveTodo = (todo) => {
     if (findById(todo.id)) {
       return;
@@ -53,7 +57,14 @@ const todoManagerFactory = (storage) => {
     storage.removeItem({ property: 'id', value: id });
   };
 
-  return { findAll, findById, saveTodo, updateTodo, deleteTodo };
+  return {
+    findAll,
+    findById,
+    findByProject,
+    saveTodo,
+    updateTodo,
+    deleteTodo,
+  };
 };
 
 export { todoPriorities, todoFactory, todoManagerFactory };
