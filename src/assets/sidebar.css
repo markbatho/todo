@@ -47,3 +47,15 @@
   font-size: 18px;
 }
 
+.active {
+  background-color: var(--primary-grey);
+}
+
+.active a {
+  color: var(--primary-black);
+}
+
+.active > svg {
+  fill: var(--primary-black) !important;
+}
+

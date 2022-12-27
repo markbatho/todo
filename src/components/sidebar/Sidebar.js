@@ -19,14 +19,36 @@ const Sidebar = (props) => {
   const sidebarListItemWeek = SidebarListItem('Week', weekImg);
   const sidebarListItemImportant = SidebarListItem('Important', importantImg);
 
-  sidebarListItemAll.onclick = () =>
+  const defaultActiveListItem = sidebarListItemAll;
+
+  defaultActiveListItem.classList.add('active');
+
+  let activeListItem = defaultActiveListItem;
+
+  sidebarListItemAll.onclick = () => {
     props.setProject('All', props.projectManager, props.todoManager);
-  sidebarListItemToday.onclick = () =>
+    activeListItem.classList.remove('active');
+    activeListItem = sidebarListItemAll;
+    sidebarListItemAll.classList.add('active');
+  };
+  sidebarListItemToday.onclick = () => {
     props.setProject('Today', props.projectManager, props.todoManager);
-  sidebarListItemWeek.onclick = () =>
+    activeListItem.classList.remove('active');
+    activeListItem = sidebarListItemToday;
+    sidebarListItemToday.classList.add('active');
+  };
+  sidebarListItemWeek.onclick = () => {
     props.setProject('Week', props.projectManager, props.todoManager);
-  sidebarListItemImportant.onclick = () =>
+    activeListItem.classList.remove('active');
+    activeListItem = sidebarListItemWeek;
+    sidebarListItemWeek.classList.add('active');
+  };
+  sidebarListItemImportant.onclick = () => {
     props.setProject('Important', props.projectManager, props.todoManager);
+    activeListItem.classList.remove('active');
+    activeListItem = sidebarListItemImportant;
+    sidebarListItemImportant.classList.add('active');
+  };
 
   const projectDiv = document.createElement('div');
   const projectListHeader = document.createElement('a');
@@ -35,8 +57,12 @@ const Sidebar = (props) => {
   const projects = props.projectManager.findAll();
   projects.forEach((project) => {
     const projectListItem = SidebarListItem(project.name, projectImg);
-    projectListItem.onclick = () =>
+    projectListItem.onclick = () => {
       props.setProject(project.name, props.projectManager, props.todoManager);
+      activeListItem.classList.remove('active');
+      activeListItem = projectListItem;
+      projectListItem.classList.add('active');
+    };
     projectList.appendChild(projectListItem);
   });
 

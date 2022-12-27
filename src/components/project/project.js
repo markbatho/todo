@@ -1,3 +1,5 @@
+import TodoList from './todoList';
+
 const Project = (props) => {
   const project = document.createElement('div');
   const h2 = document.createElement('h2');
@@ -27,6 +29,10 @@ const Project = (props) => {
       );
       todos = props.todoManagerInstance.findByProject(selectedProject);
   }
+
+  const todoList = TodoList(todos);
+
+  project.appendChild(todoList);
 
   return project;
 };
