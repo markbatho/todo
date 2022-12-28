@@ -15,14 +15,15 @@ const CreateProjectListItem = (props) => {
 
   confirmBtn.onclick = () => {
     if (!projectNameInput.value) return;
+    const sidebarListItem = SidebarListItem(projectNameInput.value, projectImg);
     props.projectManager.saveProject(projectFactory(projectNameInput.value));
     props.setProject(
       projectNameInput.value,
       props.projectManager,
-      props.todoManager
+      props.todoManager,
+      sidebarListItem
     );
 
-    const sidebarListItem = SidebarListItem(projectNameInput.value, projectImg);
     props.active.item.classList.remove('active');
     props.active.item = sidebarListItem;
     sidebarListItem.classList.add('active');
