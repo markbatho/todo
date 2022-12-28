@@ -16,13 +16,15 @@ const app = (content) => {
   const setProject = (
     projectName,
     projectManagerInstance,
-    todoManagerInstance
+    todoManagerInstance,
+    sidebarListItem
   ) => {
     const oldProject = document.getElementById('project');
     const newProject = Project({
       projectName,
       projectManagerInstance,
       todoManagerInstance,
+      sidebarListItem,
     });
     newProject.id = 'project';
 

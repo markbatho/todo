@@ -9,15 +9,14 @@ const EditProject = (props) => {
   confirmBtn.textContent = 'Confirm';
   cancelBtn.textContent = 'Cancel';
 
-  // TODO: Change sidebar list item text too
   confirmBtn.onclick = () => {
-    console.log(props.h2.textContent);
     props.projectManager.updateProject(
       props.h2.textContent,
       projectFactory(projectNameInput.value)
     );
 
     props.h2.textContent = projectNameInput.value;
+    props.sidebarListItem.lastChild.textContent = projectNameInput.value;
     editProject.replaceWith(props.h2);
   };
 

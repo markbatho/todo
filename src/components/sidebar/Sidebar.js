@@ -81,7 +81,12 @@ const Sidebar = (props) => {
   projects.forEach((project) => {
     const projectListItem = SidebarListItem(project.name, projectImg);
     projectListItem.onclick = () => {
-      props.setProject(project.name, props.projectManager, props.todoManager);
+      props.setProject(
+        project.name,
+        props.projectManager,
+        props.todoManager,
+        projectListItem
+      );
       active.item.classList.remove('active');
       active.item = projectListItem;
       projectListItem.classList.add('active');
@@ -89,7 +94,6 @@ const Sidebar = (props) => {
     projectList.appendChild(projectListItem);
   });
 
-  // projectListHeader.textContent = 'Projects';
   projectDiv.appendChild(projectListHeader);
   projectDiv.appendChild(projectList);
 

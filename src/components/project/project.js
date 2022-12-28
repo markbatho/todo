@@ -20,8 +20,9 @@ const Project = (props) => {
   deleteBtn.innerHTML = deleteIcon;
 
   const projectManager = props.projectManagerInstance;
+  const sidebarListItem = props.sidebarListItem;
   editBtn.onclick = () => {
-    const editProject = EditProject({ h2, projectManager });
+    const editProject = EditProject({ h2, projectManager, sidebarListItem });
     h2.replaceWith(editProject);
   };
   deleteBtn.onclick = () => {};
