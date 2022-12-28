@@ -9,8 +9,8 @@ import Project from './components/project/project';
 
 const app = (content) => {
   const projectStorage = storageFactory('projects');
-  const projectManager = projectManagerFactory(projectStorage);
   const todoStorage = storageFactory('todos');
+  const projectManager = projectManagerFactory(projectStorage, todoStorage);
   const todoManager = todoManagerFactory(todoStorage);
 
   const setProject = (

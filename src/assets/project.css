@@ -1,0 +1,27 @@
+#project {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.project-actions button {
+  background-color: transparent;
+  border: none;
+}
+
+.project-actions svg {
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}
