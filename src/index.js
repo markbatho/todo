@@ -4,6 +4,7 @@ import { projectFactory, projectManagerFactory } from './project';
 import { todoFactory, todoManagerFactory, todoPriorities } from './todo';
 import Sidebar from './components/sidebar/Sidebar';
 import Project from './components/project/Project';
+import Collection from './components/project/Collection';
 
 const app = (content) => {
   const projectStorage = storageFactory('projects');
@@ -22,6 +23,21 @@ const app = (content) => {
       project,
       lists,
       projectManagerInstance,
+      todoManagerInstance,
+    });
+    newProject.id = 'project';
+    if (!oldProject) {
+      sidebar.after(newProject);
+      return;
+    }
+    content.replaceChild(newProject, oldProject);
+  };
+
+  const setCollection = (collectionName, lists, todoManagerInstance) => {
+    const oldProject = document.getElementById('project');
+    const newProject = Collection({
+      collectionName,
+      lists,
       todoManagerInstance,
     });
     newProject.id = 'project';
@@ -88,10 +104,16 @@ const app = (content) => {
   todoManager.saveTodo(t3);
   todoManager.saveTodo(t4);
 
-  const sidebar = Sidebar({ projectManager, todoManager, setProject });
+  const sidebar = Sidebar({
+    projectManager,
+    todoManager,
+    setProject,
+    setCollection,
+  });
   content.appendChild(sidebar);
 
-  setProject('All', null, projectManager, todoManager);
+  // setProject('All', null, projectManager, todoManager);
+  setCollection('All', null, todoManager);
 };
 
 const content = document.getElementById('app');

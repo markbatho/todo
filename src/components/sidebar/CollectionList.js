@@ -24,7 +24,12 @@ const CollectionList = (props) => {
 
   Array.from(collectionList.childNodes).map((listItem) => {
     listItem.onclick = () => {
-      props.activeListItem.setActiveItem(listItem);
+      props.lists.setActiveItem(listItem);
+      props.setCollection(
+        listItem.lastChild.textContent,
+        props.lists,
+        props.todoManager
+      );
     };
   });
 

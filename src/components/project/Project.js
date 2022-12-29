@@ -38,40 +38,15 @@ const Project = (props) => {
 
   projectHeader.classList.add('project-page-header');
   projectHeader.appendChild(h2);
-
-  if (
-    props.projectName !== 'All' &&
-    props.projectName !== 'Today' &&
-    props.projectName !== 'Week' &&
-    props.projectName !== 'Important'
-  ) {
-    projectHeader.appendChild(projectActions);
-  }
+  projectHeader.appendChild(projectActions);
 
   project.appendChild(projectHeader);
 
   let todos;
   let selectedProject;
 
-  switch (props.projectName) {
-    case 'All':
-      todos = props.todoManagerInstance.findAll();
-      break;
-    case 'Today':
-      todos = null;
-      break;
-    case 'Week':
-      todos = null;
-      break;
-    case 'Important':
-      todos = null;
-      break;
-    default:
-      selectedProject = props.projectManagerInstance.findByName(
-        props.projectName
-      );
-      todos = props.todoManagerInstance.findByProject(selectedProject);
-  }
+  selectedProject = props.projectManagerInstance.findByName(props.projectName);
+  todos = props.todoManagerInstance.findByProject(selectedProject);
 
   const todoList = TodoList(todos);
 
