@@ -1,3 +1,4 @@
+import slugify from 'slugify';
 import projectImg from '../../assets/icons/project.svg';
 
 import { projectFactory } from '../../project';
@@ -15,19 +16,23 @@ const CreateProjectListItem = (props) => {
 
   confirmBtn.onclick = () => {
     if (!projectNameInput.value) return;
+    if (props.projectManager.findByName(projectNameInput.value)) return;
     const sidebarListItem = SidebarListItem(projectNameInput.value, projectImg);
-    props.projectManager.saveProject(projectFactory(projectNameInput.value));
-    props.setProject(
-      projectNameInput.value,
-      props.projectManager,
-      props.todoManager,
-      sidebarListItem
-    );
+    const listItemId = (sidebarListItem.dataset.id = slugify(
+      projectNameInput.value
+    ));
+    const newProject = projectFactory(projectNameInput.value, listItemId);
 
-    props.active.item.classList.remove('active');
-    props.active.item = sidebarListItem;
-    sidebarListItem.classList.add('active');
+    props.projectManager.saveProject(newProject);
+    props.setProject(
+      newProject,
+      props.lists,
+      props.projectManager,
+      props.todoManager
+    );
     props.projectList.prepend(sidebarListItem);
+
+    props.lists.setActiveItem(sidebarListItem);
 
     document.getElementById('create-project-form').remove();
   };

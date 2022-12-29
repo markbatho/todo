@@ -1,4 +1,4 @@
-import Todo from './todo';
+import Todo from './Todo';
 
 const TodoList = (todos) => {
   const todoList = document.createElement('ul');

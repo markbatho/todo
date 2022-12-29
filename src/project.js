@@ -1,7 +1,7 @@
 import { todoFactory } from './todo';
 
-const projectFactory = (name) => {
-  return { name };
+const projectFactory = (name, listItem) => {
+  return { name, listItem };
 };
 
 const projectManagerFactory = (projectStorage, todoStorage) => {

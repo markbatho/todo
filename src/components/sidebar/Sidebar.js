@@ -1,58 +1,27 @@
 import '../../assets/sidebar.css';
 
-import allImg from '../../assets/icons/inbox.svg';
-import todayImg from '../../assets/icons/today.svg';
-import weekImg from '../../assets/icons/week.svg';
-import importantImg from '../../assets/icons/star.svg';
-import projectImg from '../../assets/icons/project.svg';
 import plusIcon from '../../assets/icons/plus.svg';
+import projectIcon from '../../assets/icons/project.svg';
 
 import SidebarList from './SidebarList';
 import SidebarListItem from './SidebarListItem';
 import CreateProjectListItem from './CreateProjectListItem';
+import CollectionList from './CollectionList';
 
 const Sidebar = (props) => {
   const sidebar = document.createElement('aside');
   const sidebarBrand = document.createElement('a');
-  const sidebarList = SidebarList();
 
-  const sidebarListItemAll = SidebarListItem('All', allImg);
-  const sidebarListItemToday = SidebarListItem('Today', todayImg);
-  const sidebarListItemWeek = SidebarListItem('Week', weekImg);
-  const sidebarListItemImportant = SidebarListItem('Important', importantImg);
-
-  const defaultActiveListItem = sidebarListItemAll;
-
-  defaultActiveListItem.classList.add('active');
-
-  let active = {
-    item: defaultActiveListItem,
+  const lists = {
+    activeItem: null,
+    setActiveItem: function (item) {
+      if (this.activeItem) this.activeItem.classList.remove('active');
+      this.activeItem = item;
+      this.activeItem.classList.add('active');
+    },
   };
 
-  sidebarListItemAll.onclick = () => {
-    props.setProject('All', props.projectManager, props.todoManager);
-    active.item.classList.remove('active');
-    active.item = sidebarListItemAll;
-    sidebarListItemAll.classList.add('active');
-  };
-  sidebarListItemToday.onclick = () => {
-    props.setProject('Today', props.projectManager, props.todoManager);
-    active.item.classList.remove('active');
-    active.item = sidebarListItemToday;
-    sidebarListItemToday.classList.add('active');
-  };
-  sidebarListItemWeek.onclick = () => {
-    props.setProject('Week', props.projectManager, props.todoManager);
-    active.item.classList.remove('active');
-    active.item = sidebarListItemWeek;
-    sidebarListItemWeek.classList.add('active');
-  };
-  sidebarListItemImportant.onclick = () => {
-    props.setProject('Important', props.projectManager, props.todoManager);
-    active.item.classList.remove('active');
-    active.item = sidebarListItemImportant;
-    sidebarListItemImportant.classList.add('active');
-  };
+  const collectionList = CollectionList({ lists });
 
   const projectDiv = document.createElement('div');
   const projectListHeader = document.createElement('div');
@@ -68,7 +37,7 @@ const Sidebar = (props) => {
       return;
     }
     projectList.prepend(
-      CreateProjectListItem({ ...props, projectList, active })
+      CreateProjectListItem({ ...props, projectList, lists })
     );
   };
 
@@ -78,19 +47,16 @@ const Sidebar = (props) => {
   const projectList = SidebarList();
 
   const projects = props.projectManager.findAll();
-  projects.forEach((project) => {
-    const projectListItem = SidebarListItem(project.name, projectImg);
+  projects.map((project) => {
+    const projectListItem = SidebarListItem(project.name, projectIcon);
+
+    projectListItem.dataset.id = project.listItem;
+
     projectListItem.onclick = () => {
-      props.setProject(
-        project.name,
-        props.projectManager,
-        props.todoManager,
-        projectListItem
-      );
-      active.item.classList.remove('active');
-      active.item = projectListItem;
-      projectListItem.classList.add('active');
+      lists.setActiveItem(projectListItem);
+      props.setProject(project, lists, props.projectManager, props.todoManager);
     };
+
     projectList.appendChild(projectListItem);
   });
 
@@ -104,13 +70,8 @@ const Sidebar = (props) => {
 
   sidebarBrand.textContent = 'Todo Application';
 
-  sidebarList.appendChild(sidebarListItemAll);
-  sidebarList.appendChild(sidebarListItemToday);
-  sidebarList.appendChild(sidebarListItemWeek);
-  sidebarList.appendChild(sidebarListItemImportant);
-
   sidebar.appendChild(sidebarBrand);
-  sidebar.appendChild(sidebarList);
+  sidebar.appendChild(collectionList);
   sidebar.appendChild(projectDiv);
 
   return sidebar;

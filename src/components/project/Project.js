@@ -1,9 +1,7 @@
 import '../../assets/project.css';
-
 import editIcon from '../../assets/icons/edit-project.svg';
 import deleteIcon from '../../assets/icons/delete.svg';
-
-import TodoList from './todoList';
+import TodoList from './TodoList';
 import EditProject from './EditProject';
 
 const Project = (props) => {
@@ -14,15 +12,22 @@ const Project = (props) => {
   const deleteBtn = document.createElement('button');
   const h2 = document.createElement('h2');
 
-  h2.textContent = props.projectName;
+  const projectManager = props.projectManagerInstance;
+  const projectInstance = props.project;
+  const lists = props.lists;
+
+  h2.textContent = props.project.name;
 
   editBtn.innerHTML = editIcon;
   deleteBtn.innerHTML = deleteIcon;
 
-  const projectManager = props.projectManagerInstance;
-  const sidebarListItem = props.sidebarListItem;
   editBtn.onclick = () => {
-    const editProject = EditProject({ h2, projectManager, sidebarListItem });
+    const editProject = EditProject({
+      h2,
+      projectInstance,
+      projectManager,
+      lists,
+    });
     h2.replaceWith(editProject);
   };
   deleteBtn.onclick = () => {};

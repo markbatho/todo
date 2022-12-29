@@ -1,3 +1,4 @@
+import slugify from 'slugify';
 import { projectFactory } from '../../project';
 
 const EditProject = (props) => {
@@ -10,13 +11,22 @@ const EditProject = (props) => {
   cancelBtn.textContent = 'Cancel';
 
   confirmBtn.onclick = () => {
-    props.projectManager.updateProject(
-      props.h2.textContent,
-      projectFactory(projectNameInput.value)
+    const updatedProject = projectFactory(
+      projectNameInput.value,
+      slugify(projectNameInput.value)
     );
 
+    props.projectManager.updateProject(
+      props.projectInstance.name,
+      updatedProject
+    );
+
+    Object.assign(props.projectInstance, updatedProject);
+
+    props.lists.activeItem.dataset.id = slugify(projectNameInput.value);
+    props.lists.activeItem.lastChild.textContent = projectNameInput.value;
+
     props.h2.textContent = projectNameInput.value;
-    props.sidebarListItem.lastChild.textContent = projectNameInput.value;
     editProject.replaceWith(props.h2);
   };
 

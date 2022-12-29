@@ -1,11 +1,9 @@
 import './assets/style.css';
-
 import storageFactory from './storage';
 import { projectFactory, projectManagerFactory } from './project';
 import { todoFactory, todoManagerFactory, todoPriorities } from './todo';
-
 import Sidebar from './components/sidebar/Sidebar';
-import Project from './components/project/project';
+import Project from './components/project/Project';
 
 const app = (content) => {
   const projectStorage = storageFactory('projects');
@@ -14,25 +12,23 @@ const app = (content) => {
   const todoManager = todoManagerFactory(todoStorage);
 
   const setProject = (
-    projectName,
+    project,
+    lists,
     projectManagerInstance,
-    todoManagerInstance,
-    sidebarListItem
+    todoManagerInstance
   ) => {
     const oldProject = document.getElementById('project');
     const newProject = Project({
-      projectName,
+      project,
+      lists,
       projectManagerInstance,
       todoManagerInstance,
-      sidebarListItem,
     });
     newProject.id = 'project';
-
     if (!oldProject) {
       sidebar.after(newProject);
       return;
     }
-
     content.replaceChild(newProject, oldProject);
   };
 
@@ -42,10 +38,10 @@ const app = (content) => {
   const p3 = projectFactory('My Project');
   const p4 = projectFactory('New Project');
 
-  projectManager.saveProject(p1);
-  projectManager.saveProject(p2);
-  projectManager.saveProject(p3);
-  projectManager.saveProject(p4);
+  // projectManager.saveProject(p1);
+  // projectManager.saveProject(p2);
+  // projectManager.saveProject(p3);
+  // projectManager.saveProject(p4);
 
   const t1 = todoFactory(
     'todo 1',
@@ -95,7 +91,7 @@ const app = (content) => {
   const sidebar = Sidebar({ projectManager, todoManager, setProject });
   content.appendChild(sidebar);
 
-  setProject('All', projectManager, todoManager);
+  setProject('All', null, projectManager, todoManager);
 };
 
 const content = document.getElementById('app');
