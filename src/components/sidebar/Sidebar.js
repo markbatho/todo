@@ -23,7 +23,8 @@ const Sidebar = (props) => {
 
   const setCollection = props.setCollection;
 
-  const collectionList = CollectionList({ lists, setCollection });
+  const todoManager = props.todoManager;
+  const collectionList = CollectionList({ lists, setCollection, todoManager });
 
   const projectDiv = document.createElement('div');
   const projectListHeader = document.createElement('div');

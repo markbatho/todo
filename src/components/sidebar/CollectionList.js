@@ -10,6 +10,7 @@ const CollectionList = (props) => {
   const collectionList = SidebarList();
 
   const collectionListItemAll = SidebarListItem('All', allIcon);
+  props.lists.setActiveItem(collectionListItemAll);
   const collectionListItemToday = SidebarListItem('Today', todayIcon);
   const collectionListItemWeek = SidebarListItem('Week', weekIcon);
   const collectionListItemImportant = SidebarListItem(

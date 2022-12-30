@@ -59,6 +59,46 @@ const app = (content) => {
   // projectManager.saveProject(p3);
   // projectManager.saveProject(p4);
 
+  const today1 = todoFactory(
+    'Today',
+    'lorem ipsum',
+    new Date(),
+    new Date('2022-12-29'),
+    false,
+    todoPriorities.medium,
+    p1
+  );
+
+  const today2 = todoFactory(
+    'Today 2',
+    'lorem ipsum',
+    new Date(),
+    new Date('2022-12-29'),
+    false,
+    todoPriorities.medium,
+    p1
+  );
+
+  const thisWeek1 = todoFactory(
+    'This week',
+    'lorem ipsum',
+    new Date(),
+    new Date('2022-12-30'),
+    false,
+    todoPriorities.medium,
+    p1
+  );
+
+  const important = todoFactory(
+    'Important Todo',
+    'lorem ipsum',
+    new Date(),
+    new Date('2022-12-30'),
+    false,
+    todoPriorities.high,
+    p1
+  );
+
   const t1 = todoFactory(
     'todo 1',
     'lorep ipsum dolor...',
@@ -103,6 +143,10 @@ const app = (content) => {
   todoManager.saveTodo(t2);
   todoManager.saveTodo(t3);
   todoManager.saveTodo(t4);
+  todoManager.saveTodo(today1);
+  todoManager.saveTodo(today2);
+  todoManager.saveTodo(thisWeek1);
+  todoManager.saveTodo(important);
 
   const sidebar = Sidebar({
     projectManager,
@@ -112,7 +156,6 @@ const app = (content) => {
   });
   content.appendChild(sidebar);
 
-  // setProject('All', null, projectManager, todoManager);
   setCollection('All', null, todoManager);
 };
 

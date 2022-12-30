@@ -29,8 +29,8 @@ const todoFactory = (
 };
 
 const todoManagerFactory = (storage) => {
-  const findAll = () => {
-    return storage.findAll();
+  const findAll = (query) => {
+    return storage.findAll(query);
   };
 
   const findById = (id) => {
