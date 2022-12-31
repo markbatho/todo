@@ -1,5 +1,4 @@
-import slugify from 'slugify';
-import projectImg from '../../assets/icons/project.svg';
+import projectIcon from '../../assets/icons/project.svg';
 
 import { projectFactory } from '../../project';
 import SidebarListItem from './SidebarListItem';
@@ -17,15 +16,15 @@ const CreateProjectListItem = (props) => {
   confirmBtn.onclick = () => {
     if (!projectNameInput.value) return;
     if (props.projectManager.findByName(projectNameInput.value)) return;
-    const sidebarListItem = SidebarListItem(projectNameInput.value, projectImg);
-    const listItemId = (sidebarListItem.dataset.id = slugify(
-      projectNameInput.value
-    ));
-    const newProject = projectFactory(projectNameInput.value, listItemId);
+    const project = projectFactory(projectNameInput.value, null);
+    const sidebarListItem = SidebarListItem({ project, projectIcon, ...props });
+    // const listItemId = (sidebarListItem.dataset.id = slugify(
+    //   projectNameInput.value
+    // ));
 
-    props.projectManager.saveProject(newProject);
+    props.projectManager.saveProject(project);
     props.setProject(
-      newProject,
+      project,
       props.lists,
       props.projectManager,
       props.todoManager

@@ -4,16 +4,16 @@ import weekIcon from '../../assets/icons/week.svg';
 import importantIcon from '../../assets/icons/star.svg';
 
 import SidebarList from './SidebarList';
-import SidebarListItem from './SidebarListItem';
+import CollectionListItem from './CollectionListItem';
 
 const CollectionList = (props) => {
   const collectionList = SidebarList();
 
-  const collectionListItemAll = SidebarListItem('All', allIcon);
+  const collectionListItemAll = CollectionListItem('All', allIcon);
   props.lists.setActiveItem(collectionListItemAll);
-  const collectionListItemToday = SidebarListItem('Today', todayIcon);
-  const collectionListItemWeek = SidebarListItem('Week', weekIcon);
-  const collectionListItemImportant = SidebarListItem(
+  const collectionListItemToday = CollectionListItem('Today', todayIcon);
+  const collectionListItemWeek = CollectionListItem('Week', weekIcon);
+  const collectionListItemImportant = CollectionListItem(
     'Important',
     importantIcon
   );

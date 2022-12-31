@@ -24,6 +24,8 @@ const Sidebar = (props) => {
   const setCollection = props.setCollection;
 
   const todoManager = props.todoManager;
+  const projectManager = props.projectManager;
+
   const collectionList = CollectionList({ lists, setCollection, todoManager });
 
   const projectDiv = document.createElement('div');
@@ -51,13 +53,21 @@ const Sidebar = (props) => {
 
   const projects = props.projectManager.findAll();
   projects.map((project) => {
-    const projectListItem = SidebarListItem(project.name, projectIcon);
+    // const projectManager = props.projectManager;
+    // const todoManager = props.todoManager;
 
-    projectListItem.dataset.id = project.listItem;
+    const projectListItem = SidebarListItem({
+      project,
+      projectIcon,
+      lists,
+      ...props,
+    });
+
+    // projectListItem.dataset.id = project.listItem;
 
     projectListItem.onclick = () => {
       lists.setActiveItem(projectListItem);
-      props.setProject(project, lists, props.projectManager, props.todoManager);
+      props.setProject(project, lists, projectManager, todoManager);
     };
 
     projectList.appendChild(projectListItem);
