@@ -18,9 +18,16 @@ const CreateProjectListItem = (props) => {
     if (props.projectManager.findByName(projectNameInput.value)) return;
     const project = projectFactory(projectNameInput.value, null);
     const sidebarListItem = SidebarListItem({ project, projectIcon, ...props });
-    // const listItemId = (sidebarListItem.dataset.id = slugify(
-    //   projectNameInput.value
-    // ));
+
+    sidebarListItem.onclick = () => {
+      props.lists.setActiveItem(sidebarListItem);
+      props.setProject(
+        project,
+        props.lists,
+        props.projectManager,
+        props.todoManager
+      );
+    };
 
     props.projectManager.saveProject(project);
     props.setProject(
@@ -29,10 +36,9 @@ const CreateProjectListItem = (props) => {
       props.projectManager,
       props.todoManager
     );
+
     props.projectList.prepend(sidebarListItem);
-
     props.lists.setActiveItem(sidebarListItem);
-
     document.getElementById('create-project-form').remove();
   };
 

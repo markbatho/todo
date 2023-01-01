@@ -53,9 +53,6 @@ const Sidebar = (props) => {
 
   const projects = props.projectManager.findAll();
   projects.map((project) => {
-    // const projectManager = props.projectManager;
-    // const todoManager = props.todoManager;
-
     const projectListItem = SidebarListItem({
       project,
       projectIcon,
@@ -63,9 +60,8 @@ const Sidebar = (props) => {
       ...props,
     });
 
-    // projectListItem.dataset.id = project.listItem;
-
     projectListItem.onclick = () => {
+      console.log('Clicked');
       lists.setActiveItem(projectListItem);
       props.setProject(project, lists, projectManager, todoManager);
     };
