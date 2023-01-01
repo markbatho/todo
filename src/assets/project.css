@@ -9,19 +9,13 @@
   justify-content: space-between;
 }
 
-.project-actions {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.project-actions button {
+.project-page-header button {
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
-.project-actions svg {
-  height: 24px;
+.project-page-header button svg {
   width: 24px;
-  cursor: pointer;
+  height: 24px;
 }

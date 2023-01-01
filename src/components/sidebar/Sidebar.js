@@ -61,7 +61,6 @@ const Sidebar = (props) => {
     });
 
     projectListItem.onclick = () => {
-      console.log('Clicked');
       lists.setActiveItem(projectListItem);
       props.setProject(project, lists, projectManager, todoManager);
     };
