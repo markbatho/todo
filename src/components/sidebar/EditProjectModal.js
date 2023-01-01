@@ -1,4 +1,3 @@
-import slugify from 'slugify';
 import { projectFactory } from '../../project';
 
 const EditProjectModal = (props) => {
@@ -12,10 +11,7 @@ const EditProjectModal = (props) => {
   cancelBtn.textContent = 'Cancel';
 
   confirmBtn.onclick = () => {
-    const updatedProject = projectFactory(
-      editProjectNameInput.value,
-      slugify(editProjectNameInput.value)
-    );
+    const updatedProject = projectFactory(editProjectNameInput.value);
 
     props.projectManager.updateProject(props.project.name, updatedProject);
     props.lists.activeItem.getElementsByTagName('a')[0].textContent =

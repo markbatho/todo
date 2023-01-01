@@ -1,7 +1,7 @@
 import { todoFactory } from './todo';
 
-const projectFactory = (name, listItem) => {
-  return { name, listItem };
+const projectFactory = (name /* listItem */) => {
+  return { name /* listItem */ };
 };
 
 const projectManagerFactory = (projectStorage, todoStorage) => {
@@ -33,7 +33,7 @@ const projectManagerFactory = (projectStorage, todoStorage) => {
       todoStorage.updateItem(
         { property: 'id', value: element.id },
         todoFactory(
-          element.id,
+          element.title,
           element.desc,
           element.createAt,
           element.dueDate,
