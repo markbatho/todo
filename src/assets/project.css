@@ -1,12 +1,16 @@
 #project {
+  position: relative;
   display: flex;
   flex-direction: column;
+  overflow: scroll;
 }
 
 .project-page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 64px;
+  width: 100%;
 }
 
 .project-page-header button {
@@ -18,4 +22,8 @@
 .project-page-header button svg {
   width: 24px;
   height: 24px;
+}
+
+.todo-list-container {
+  padding: 0 32px;
 }

@@ -6,6 +6,7 @@ import CreateTodoModal from './CreateTodoModal';
 const Project = (props) => {
   const project = document.createElement('div');
   const projectHeader = document.createElement('div');
+  const todoListContainer = document.createElement('div');
   const h2 = document.createElement('h2');
   const createTodo = document.createElement('button');
 
@@ -35,9 +36,11 @@ const Project = (props) => {
   selectedProject = props.projectManagerInstance.findByName(props.project.name);
   todos = props.todoManagerInstance.findByProject(selectedProject);
 
-  const todoList = TodoList(todos);
+  const todoList = TodoList(todos, props.todoManagerInstance);
 
-  project.appendChild(todoList);
+  todoListContainer.classList.add('todo-list-container');
+  todoListContainer.appendChild(todoList);
+  project.appendChild(todoListContainer);
 
   return project;
 };

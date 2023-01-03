@@ -36,7 +36,7 @@ const Collection = (props) => {
       break;
   }
 
-  const todoList = TodoList(todos);
+  const todoList = TodoList(todos, props.todoManagerInstance);
 
   collection.appendChild(h2);
   collection.appendChild(todoList);

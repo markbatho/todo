@@ -1,0 +1,46 @@
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  user-select: none;
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid var(--primary-grey);
+  padding: 4px;
+}
+
+.todo h3 {
+  margin: 0;
+  user-select: text;
+}
+
+.todo-header {
+  display: flex;
+  gap: 4px;
+}
+
+.todo-header svg {
+  width: 24px;
+  height: 24px;
+}
+
+.todo-extended {
+  display: none;
+  border: 1px solid var(--primary-grey);
+}
+
+.todo-extended p {
+  user-select: text;
+}
+
+.todo-footer {
+  display: none;
+  justify-content: space-between;
+}
