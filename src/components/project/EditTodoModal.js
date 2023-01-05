@@ -1,9 +1,8 @@
 import { todoFactory, todoPriorities } from '../../todo';
-import Todo from './Todo';
 
-const CreateTodoModal = (props) => {
-  const createTodoModal = document.createElement('div');
-  const createTodoForm = document.createElement('form');
+const EditTodoModal = (props) => {
+  const editTodoModal = document.createElement('div');
+  const editTodoForm = document.createElement('form');
   const confirmBtn = document.createElement('button');
   const cancelBtn = document.createElement('button');
 
@@ -19,21 +18,30 @@ const CreateTodoModal = (props) => {
       dueDateInput.value,
       false,
       todoPriorities[prioritySelect.value],
-      props.project
+      props.todo.project
     );
 
-    props.todoManagerInstance.saveTodo(todo);
-    props.closeModal(createTodoModal);
-    props.todoList.appendChild(Todo(todo, props.todoManagerInstance));
+    props.todoManager.updateTodo(props.todo.id, todo);
+    Object.assign(props.todo, todo);
+
+    props.updateValues(
+      todo.title,
+      todo.desc,
+      todo.dueDate,
+      todo.priority.value
+    );
+
+    props.closeModal(editTodoModal);
   };
 
   cancelBtn.onclick = () => {
-    props.closeModal(createTodoModal);
+    props.closeModal(editTodoModal);
   };
 
   const titleGroup = document.createElement('div');
   const titleLabel = document.createElement('label');
   const titleInput = document.createElement('input');
+  titleInput.value = props.todo.title;
 
   titleLabel.textContent = 'Title';
 
@@ -43,6 +51,7 @@ const CreateTodoModal = (props) => {
   const descGroup = document.createElement('div');
   const descLabel = document.createElement('label');
   const descInput = document.createElement('input');
+  descInput.value = props.todo.desc;
 
   descLabel.textContent = 'Description';
 
@@ -52,6 +61,7 @@ const CreateTodoModal = (props) => {
   const dueDateGroup = document.createElement('div');
   const dueDateLabel = document.createElement('label');
   const dueDateInput = document.createElement('input');
+  dueDateInput.value = props.todo.dueDate;
 
   dueDateLabel.textContent = 'Due Date';
   dueDateInput.type = 'date';
@@ -80,17 +90,17 @@ const CreateTodoModal = (props) => {
   dueDateGroup.classList.add('form-group');
   priorityGroup.classList.add('form-group');
 
-  createTodoForm.appendChild(titleGroup);
-  createTodoForm.appendChild(descGroup);
-  createTodoForm.appendChild(dueDateGroup);
-  createTodoForm.appendChild(priorityGroup);
-  createTodoForm.appendChild(confirmBtn);
-  createTodoForm.appendChild(cancelBtn);
+  editTodoForm.appendChild(titleGroup);
+  editTodoForm.appendChild(descGroup);
+  editTodoForm.appendChild(dueDateGroup);
+  editTodoForm.appendChild(priorityGroup);
+  editTodoForm.appendChild(confirmBtn);
+  editTodoForm.appendChild(cancelBtn);
 
-  createTodoModal.classList.add('modal');
-  createTodoModal.appendChild(createTodoForm);
+  editTodoModal.classList.add('modal');
+  editTodoModal.appendChild(editTodoForm);
 
-  return createTodoModal;
+  return editTodoModal;
 };
 
-export default CreateTodoModal;
+export default EditTodoModal;

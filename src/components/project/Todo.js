@@ -1,5 +1,7 @@
 import '../../assets/todo.css';
 import deleteIcon from '../../assets/icons/delete.svg';
+import editIcon from '../../assets/icons/pencil.svg';
+import EditTodoModal from './EditTodoModal';
 
 const Todo = (todo, todoManager) => {
   const todoItem = document.createElement('li');
@@ -8,6 +10,7 @@ const Todo = (todo, todoManager) => {
   const todoFooter = document.createElement('div');
   const checkbox = document.createElement('input');
   const title = document.createElement('h3');
+  const editBtn = document.createElement('button');
   const deleteBtn = document.createElement('button');
   const descBox = document.createElement('div');
   const desc = document.createElement('p');
@@ -26,7 +29,28 @@ const Todo = (todo, todoManager) => {
       todoFooter.style.display = 'flex';
       isOpen = true;
     }
+  };
+
+  function updateValues(newTitle, newDesc, newDueDate, newPriority) {
+    title.textContent = newTitle;
+    desc.textContent = newDesc;
+    dueDate.textContent = newDueDate;
+    priority.textContent = newPriority;
   }
+
+  function closeModal(modal) {
+    modal.remove(modal);
+  }
+
+  editBtn.onclick = () => {
+    const modal = EditTodoModal({
+      todo,
+      todoManager,
+      closeModal,
+      updateValues,
+    });
+    document.body.appendChild(modal);
+  };
 
   deleteBtn.onclick = () => {
     todoManager.deleteTodo(todo.id);
@@ -34,6 +58,7 @@ const Todo = (todo, todoManager) => {
   };
 
   checkbox.type = 'checkbox';
+  editBtn.innerHTML = editIcon;
   deleteBtn.innerHTML = deleteIcon;
 
   title.textContent = todo.title;
@@ -49,6 +74,7 @@ const Todo = (todo, todoManager) => {
   descBox.appendChild(desc);
   todoHeader.appendChild(checkbox);
   todoHeader.appendChild(title);
+  todoHeader.appendChild(editBtn);
   todoHeader.appendChild(deleteBtn);
   todoExtended.appendChild(descBox);
   todoFooter.appendChild(dueDate);
@@ -56,7 +82,7 @@ const Todo = (todo, todoManager) => {
   todoItem.appendChild(todoHeader);
   todoItem.appendChild(todoExtended);
   todoItem.appendChild(todoFooter);
-  
+
   return todoItem;
 };
 
