@@ -7,6 +7,7 @@ import SidebarList from './SidebarList';
 import SidebarListItem from './SidebarListItem';
 import CreateProjectListItem from './CreateProjectListItem';
 import CollectionList from './CollectionList';
+import CreateProjectModal from './CreateProjectModal';
 
 const Sidebar = (props) => {
   const sidebar = document.createElement('aside');
@@ -38,12 +39,23 @@ const Sidebar = (props) => {
   projectListHeaderCreate.innerHTML = plusIcon;
 
   projectListHeaderCreate.onclick = () => {
-    if (document.getElementById('create-project-form')) {
-      return;
+    // if (document.getElementById('create-project-form')) {
+    //   return;
+    // }
+    // projectList.prepend(
+    //   CreateProjectListItem({ ...props, projectList, lists })
+    // );
+    function closeModal(modal) {
+      modal.remove();
     }
-    projectList.prepend(
-      CreateProjectListItem({ ...props, projectList, lists })
-    );
+
+    const modal = CreateProjectModal({
+      ...props,
+      projectList,
+      lists,
+      closeModal,
+    });
+    document.body.append(modal);
   };
 
   projectListHeader.appendChild(projectListHeaderText);
