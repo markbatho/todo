@@ -75,6 +75,11 @@ const EditTodoModal = (props) => {
 
   Object.keys(todoPriorities).map((priority) => {
     const option = document.createElement('option');
+
+    if (props.todo.priority.value == priority) {
+      option.selected = true;
+    }
+
     option.value = priority;
     option.label = priority;
     prioritySelect.appendChild(option);

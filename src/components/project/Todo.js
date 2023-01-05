@@ -1,4 +1,6 @@
 import '../../assets/todo.css';
+import openIcon from '../../assets/icons/down.svg';
+import closeIcon from '../../assets/icons/up.svg';
 import deleteIcon from '../../assets/icons/delete.svg';
 import editIcon from '../../assets/icons/pencil.svg';
 import EditTodoModal from './EditTodoModal';
@@ -12,6 +14,7 @@ const Todo = (todo, todoManager) => {
   const title = document.createElement('h3');
   const editBtn = document.createElement('button');
   const deleteBtn = document.createElement('button');
+  const toggleBtn = document.createElement('button');
   const descBox = document.createElement('div');
   const desc = document.createElement('p');
   const dueDate = document.createElement('p');
@@ -19,14 +22,16 @@ const Todo = (todo, todoManager) => {
 
   let isOpen = false;
 
-  todoItem.ondblclick = () => {
+  toggleBtn.onclick = () => {
     if (isOpen) {
       todoExtended.style.display = 'none';
       todoFooter.style.display = 'none';
+      toggleBtn.innerHTML = openIcon;
       isOpen = false;
     } else {
       todoExtended.style.display = 'flex';
       todoFooter.style.display = 'flex';
+      toggleBtn.innerHTML = closeIcon;
       isOpen = true;
     }
   };
@@ -41,6 +46,16 @@ const Todo = (todo, todoManager) => {
   function closeModal(modal) {
     modal.remove(modal);
   }
+
+  checkbox.onchange = () => {
+    if (checkbox.checked) {
+      todo.isDone = true;
+      todoManager.updateTodo(todo.id, todo);
+    } else {
+      todo.isDone = false;
+      todoManager.updateTodo(todo.id, todo);
+    }
+  };
 
   editBtn.onclick = () => {
     const modal = EditTodoModal({
@@ -58,8 +73,10 @@ const Todo = (todo, todoManager) => {
   };
 
   checkbox.type = 'checkbox';
-  editBtn.innerHTML = editIcon;
+  (checkbox.checked = todo.isDone ? true : false),
+    (editBtn.innerHTML = editIcon);
   deleteBtn.innerHTML = deleteIcon;
+  toggleBtn.innerHTML = openIcon;
 
   title.textContent = todo.title;
   desc.textContent = todo.desc;
@@ -76,6 +93,7 @@ const Todo = (todo, todoManager) => {
   todoHeader.appendChild(title);
   todoHeader.appendChild(editBtn);
   todoHeader.appendChild(deleteBtn);
+  todoHeader.appendChild(toggleBtn);
   todoExtended.appendChild(descBox);
   todoFooter.appendChild(dueDate);
   todoFooter.appendChild(priority);
